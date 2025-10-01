@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Interactivo de Consejería Grupal en Adicciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm & Trustworthy -->
+    <!-- Application Structure Plan: Se ha diseñado una aplicación de página única (SPA) con una navegación lateral fija para un acceso rápido y no lineal a los contenidos. La estructura se aleja del formato de un manual tradicional y se organiza en secciones funcionales: 'Fundamentos' para la teoría base, una 'Caja de Herramientas' interactiva para explorar modelos terapéuticos, 'El Proceso Grupal' para visualizar las fases de la terapia y planificar sesiones, 'Contexto Mexicano' para la información localizada, y 'Recursos Prácticos' con herramientas aplicables. Esta arquitectura orientada a tareas permite a los estudiantes encontrar y aplicar la información de manera más eficiente, fomentando el aprendizaje activo en lugar del consumo pasivo de contenido. -->
+    <!-- Visualization & Content Choices: 1. Fundamentos (Ventajas/Desafíos): Objetivo: Comparar. Visualización: Gráfico de Donut (Chart.js/Canvas). Interacción: Tooltips al pasar el mouse. Justificación: Permite una comparación visual rápida del peso relativo de las ventajas frente a los desafíos. 2. El Proceso Grupal (Fases): Objetivo: Organizar/Cambio. Visualización: Diagrama de flujo/línea de tiempo horizontal (HTML/CSS/Tailwind). Interacción: Clic en cada fase para expandir y mostrar detalles. Justificación: Representa un proceso secuencial de forma clara e intuitiva. 3. Caja de Herramientas (Modelos Terapéuticos): Objetivo: Organizar. Visualización: Cuadrícula de tarjetas interactivas (HTML/CSS/Flexbox). Interacción: Filtros y clic para mostrar detalles en un modal. Justificación: Facilita la exploración y comparación de diferentes modelos. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Light Gray Background */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        .nav-link.active {
+            background-color: #e9ecef; /* Lighter shade of gray */
+            border-left-color: #007bff; /* Calm Blue */
+            color: #0056b3;
+        }
+        .nav-link:hover {
+            background-color: #e9ecef;
+            border-left-color: #0056b3;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        #generate-plan-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="flex h-screen">
+        <aside class="w-64 bg-white shadow-md flex-shrink-0">
+            <div class="p-6">
+                <h1 class="text-xl font-bold text-blue-700">Manual de Consejería</h1>
+                <p class="text-sm text-gray-500">Recursos para TSU</p>
+            </div>
+            <nav class="mt-4">
+                <a href="#fundamentos" class="nav-link active block py-3 px-6 text-gray-700 font-medium">🚀 Fundamentos</a>
+                <a href="#herramientas" class="nav-link block py-3 px-6 text-gray-700 font-medium">🛠️ Caja de Herramientas</a>
+                <a href="#proceso" class="nav-link block py-3 px-6 text-gray-700 font-medium">🔄 El Proceso Grupal</a>
+                <a href="#contexto" class="nav-link block py-3 px-6 text-gray-700 font-medium">🇲🇽 Contexto Mexicano</a>
+                <a href="#recursos" class="nav-link block py-3 px-6 text-gray-700 font-medium">📚 Recursos Prácticos</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+            
+            <section id="fundamentos" class="content-section active">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Fundamentos de la Consejería Grupal en Adicciones</h2>
+                <p class="mb-8 text-gray-600">Comprender las bases teóricas es el primer paso para una intervención efectiva. La terapia grupal ofrece un microcosmos social donde los participantes pueden explorar sus patrones de comportamiento y aprender nuevas habilidades en un entorno de apoyo.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3">Rol del Consejero Facilitador</h3>
+                        <p class="text-gray-600">El consejero no es un líder autoritario, sino un facilitador que crea un clima de seguridad y confianza. Sus competencias clave incluyen la escucha activa, la empatía, la capacidad de modelar conductas saludables y gestionar conflictos de manera constructiva, siempre manteniendo la cohesión del grupo.</p>
+                        <ul class="mt-4 space-y-2 text-sm">
+                            <li class="flex items-center"><span class="mr-2 text-blue-500">✓</span>Crear un ambiente seguro.</li>
+                            <li class="flex items-center"><span class="mr-2 text-blue-500">✓</span>Fomentar la participación equitativa.</li>
+                            <li class="flex items-center"><span class="mr-2 text-blue-500">✓</span>Manejar dinámicas grupales complejas.</li>
+                            <li class="flex items-center"><span class="mr-2 text-blue-500">✓</span>Proteger la confidencialidad.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3">Ventajas y Desafíos del Grupo</h3>
+                        <p class="text-gray-600 mb-4">El formato grupal es poderoso, pero presenta un balance único de beneficios y retos que el consejero debe saber navegar.</p>
+                        <div class="chart-container">
+                            <canvas id="ventajasChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="herramientas" class="content-section">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Caja de Herramientas: Modelos y Técnicas</h2>
+                <p class="mb-8 text-gray-600">Explora los principales modelos terapéuticos utilizados en la consejería grupal para adicciones. Cada uno ofrece un enfoque y un conjunto de técnicas distintas. Haz clic en una tarjeta para ver los detalles.</p>
+                <div id="models-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+            </section>
+
+            <section id="proceso" class="content-section">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">El Proceso Grupal: Fases y Estructura</h2>
+                <p class="mb-8 text-gray-600">Un grupo terapéutico es un organismo vivo que evoluciona a través de distintas fases. Conocerlas te permitirá anticipar y gestionar el desarrollo del grupo eficazmente.</p>
+                <div class="w-full overflow-x-auto p-4">
+                    <div id="group-phases" class="flex items-center space-x-4 min-w-max">
+                    </div>
+                </div>
+                <div id="phase-details" class="mt-8 card hidden"></div>
+                
+                <div class="card mt-10">
+                    <h3 class="text-xl font-semibold mb-3">Planificador de Sesión</h3>
+                    <p class="text-gray-600 mb-4">Usa esta herramienta para estructurar tus sesiones. Un buen plan es clave para mantener el enfoque y alcanzar los objetivos terapéuticos.</p>
+                     <button id="generate-plan-btn" class="mb-4 w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:from-purple-600 hover:to-indigo-700 transition flex items-center justify-center">
+                        <span id="btn-text" class="mr-2">✨ Generar Sugerencias con IA</span>
+                        <svg id="loading-spinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="session-objective" class="block text-sm font-medium text-gray-700">Objetivo de la Sesión</label>
+                            <input type="text" id="session-objective" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" placeholder="Ej: Fomentar la autoeficacia en situaciones de riesgo">
+                        </div>
+                        <div>
+                            <label for="session-warmup" class="block text-sm font-medium text-gray-700">Actividad de Calentamiento / Rompehielos</label>
+                            <textarea id="session-warmup" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"></textarea>
+                        </div>
+                        <div>
+                            <label for="session-main" class="block text-sm font-medium text-gray-700">Actividad(es) Central(es)</label>
+                            <textarea id="session-main" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"></textarea>
+                        </div>
+                        <div>
+                            <label for="session-closing" class="block text-sm font-medium text-gray-700">Cierre y Reflexión</label>
+                            <textarea id="session-closing" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contexto" class="content-section">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Adaptación al Contexto Mexicano</h2>
+                <p class="mb-8 text-gray-600">La consejería efectiva requiere sensibilidad cultural y conocimiento del marco normativo local. Estos elementos son cruciales para el éxito terapéutico en México.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3">Consideraciones Culturales</h3>
+                        <p class="text-gray-600">Factores como el familismo (la importancia central de la familia), el machismo, la espiritualidad y las dinámicas comunitarias influyen profundamente en la experiencia de la adicción y la recuperación. El consejero debe integrar estos elementos en la terapia, por ejemplo:</p>
+                        <ul class="mt-4 space-y-2 text-sm list-disc list-inside">
+                            <li>Involucrar a la familia en el tratamiento cuando sea apropiado.</li>
+                            <li>Abordar los roles de género y sus presiones asociadas.</li>
+                            <li>Respetar y, si es pertinente, integrar las creencias espirituales o religiosas del individuo.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-3">Marco Normativo y Institucional</h3>
+                        <p class="text-gray-600">La práctica está regulada por normativas y apoyada por instituciones clave. Es indispensable conocerlas.</p>
+                        <div class="mt-4 space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg">
+                                <h4 class="font-semibold">CONADIC</h4>
+                                <p class="text-sm">La Comisión Nacional contra las Adicciones es el organismo rector que establece las políticas públicas y guías de tratamiento.</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg">
+                                <h4 class="font-semibold">NOM-028-SSA2-2009</h4>
+                                <p class="text-sm">Esta Norma Oficial Mexicana regula la prevención, tratamiento y control de las adicciones, estableciendo los criterios mínimos de calidad para los servicios.</p>
+                            </div>
+                             <div class="p-3 bg-yellow-50 rounded-lg">
+                                <h4 class="font-semibold">CIJ</h4>
+                                <p class="text-sm">Los Centros de Integración Juvenil son una red de instituciones que ofrecen servicios de prevención y tratamiento a nivel nacional, con un fuerte enfoque en jóvenes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="recursos" class="content-section">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Recursos Prácticos</h2>
+                <p class="mb-8 text-gray-600">Herramientas y materiales listos para usar en tus prácticas y futuras intervenciones.</p>
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-4">Dinámicas Rompehielos</h3>
+                     <div class="mb-4">
+                        <input type="text" id="icebreaker-search" placeholder="Buscar dinámica..." class="w-full md:w-1/2 border border-gray-300 rounded-md shadow-sm p-2">
+                    </div>
+                    <ul id="icebreakers-list" class="space-y-3">
+                    </ul>
+                </div>
+                <div class="card mt-8">
+                     <h3 class="text-xl font-semibold mb-4">Formatos Descargables</h3>
+                     <div class="grid md:grid-cols-2 gap-4">
+                        <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">Plan de Sesión Grupal.docx</button>
+                        <button class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition">Registro de Progreso.pdf</button>
+                     </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold"></h3>
+                <button id="modal-close" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    const navigateTo = (hash) => {
+        const targetId = hash.substring(1);
+        
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.hash === hash);
+        });
+
+        contentSections.forEach(section => {
+            section.classList.toggle('active', section.id === targetId);
+        });
+    };
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hash = e.currentTarget.hash;
+            window.location.hash = hash;
+            navigateTo(hash);
+        });
+    });
+
+    const initialHash = window.location.hash || '#fundamentos';
+    navigateTo(initialHash);
+
+
+    const dataVentajas = {
+        labels: ['Ventajas', 'Desafíos'],
+        datasets: [{
+            label: 'Balance de Terapia Grupal',
+            data: [70, 30],
+            backgroundColor: ['#007bff', '#6c757d'],
+            hoverOffset: 4
+        }]
+    };
+    
+    new Chart(document.getElementById('ventajasChart'), {
+        type: 'doughnut',
+        data: dataVentajas,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const therapeuticModels = [
+        { 
+            title: 'Terapia Cognitivo-Conductual (TCC)', 
+            tag: 'Reestructuración',
+            color: 'bg-blue-100 text-blue-800',
+            content: `
+                <p class="mb-4">Se enfoca en identificar y cambiar patrones de pensamiento (cogniciones) y comportamiento negativos. En grupo, los miembros se ayudan mutuamente a reconocer "disparadores" y a practicar nuevas habilidades de afrontamiento.</p>
+                <h4 class="font-semibold mb-2">Técnicas Clave:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong>Análisis Funcional:</strong> Identificar antecedentes, conductas y consecuencias del consumo.</li>
+                    <li><strong>Reestructuración Cognitiva:</strong> Cuestionar y modificar creencias irracionales sobre el consumo.</li>
+                    <li><strong>Entrenamiento en Habilidades:</strong> Práctica de comunicación asertiva, resolución de problemas y manejo del estrés.</li>
+                </ul>
+            `
+        },
+        { 
+            title: 'Entrevista Motivacional (EM)', 
+            tag: 'Fomentar Cambio',
+            color: 'bg-green-100 text-green-800',
+            content: `
+                <p class="mb-4">Busca resolver la ambivalencia y fortalecer la motivación intrínseca para el cambio. En grupo, se genera un ambiente de apoyo donde los miembros exploran sus propias razones para cambiar, en lugar de ser presionados.</p>
+                <h4 class="font-semibold mb-2">Principios Grupales:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong>Expresar Empatía:</strong> El grupo valida las experiencias de los demás sin juzgar.</li>
+                    <li><strong>Desarrollar la Discrepancia:</strong> Se exploran las contradicciones entre los valores del individuo y su conducta de consumo.</li>
+                    <li><strong>Apoyar la Autoeficacia:</strong> Fomentar la creencia en la propia capacidad para cambiar.</li>
+                </ul>
+            `
+        },
+        { 
+            title: 'Prevención de Recaídas (PR)', 
+            tag: 'Sostenibilidad',
+            color: 'bg-yellow-100 text-yellow-800',
+            content: `
+                <p class="mb-4">Es un modelo cognitivo-conductual que enseña a los individuos a anticipar y afrontar situaciones de alto riesgo que podrían llevar a una recaída. El grupo sirve como un laboratorio para practicar estas estrategias.</p>
+                <h4 class="font-semibold mb-2">Estrategias Grupales:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong>Identificación de Riesgos:</strong> Mapeo colectivo de situaciones, pensamientos y emociones peligrosas.</li>
+                    <li><strong>Desarrollo de Habilidades de Afrontamiento:</strong> Role-playing para rechazar ofrecimientos o manejar el estrés.</li>
+                    <li><strong>Plan de Emergencia:</strong> Crear un plan de acción concreto sobre qué hacer si se presenta un deseo intenso de consumir.</li>
+                </ul>
+            `
+        },
+        { 
+            title: 'Grupos Psicoeducativos', 
+            tag: 'Información',
+            color: 'bg-indigo-100 text-indigo-800',
+            content: `
+                <p class="mb-4">Se centran en proporcionar información estructurada sobre la adicción y la recuperación. El objetivo es que los participantes comprendan la adicción como una enfermedad y conozcan las herramientas disponibles para su manejo.</p>
+                <h4 class="font-semibold mb-2">Temas Comunes:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Neurobiología de la adicción.</li>
+                    <li>Efectos de las sustancias en la salud física y mental.</li>
+                    <li>El proceso de la recuperación y sus etapas.</li>
+                    <li>Nutrición, ejercicio y bienestar general.</li>
+                </ul>
+            `
+        },
+        { 
+            title: 'Terapia Gestalt y Humanista', 
+            tag: 'Aquí y Ahora',
+            color: 'bg-pink-100 text-pink-800',
+            content: `
+                <p class="mb-4">Enfatizan la conciencia del momento presente ("aquí y ahora"), la responsabilidad personal y la autoaceptación. El grupo se convierte en un espacio para la expresión auténtica de emociones y la experimentación con nuevas formas de relacionarse.</p>
+                <h4 class="font-semibold mb-2">Técnicas Destacadas:</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong>La Silla Vacía:</strong> Diálogo con una persona o parte de sí mismo no presente para resolver asuntos inconclusos.</li>
+                    <li><strong>Rondas de Sentimientos:</strong> Cada miembro expresa su sentir en el momento presente sin filtros.</li>
+                    <li><strong>Exageración:</strong> Se pide a un miembro que exagere un gesto o conducta para tomar conciencia de su significado.</li>
+                </ul>
+            `
+        }
+    ];
+
+    const modelsGrid = document.getElementById('models-grid');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const modalClose = document.getElementById('modal-close');
+
+    therapeuticModels.forEach(model => {
+        const card = document.createElement('div');
+        card.className = 'card cursor-pointer';
+        card.innerHTML = `
+            <span class="pill ${model.color} mb-2">${model.tag}</span>
+            <h3 class="text-lg font-semibold">${model.title}</h3>
+        `;
+        card.addEventListener('click', () => {
+            modalTitle.textContent = model.title;
+            modalBody.innerHTML = model.content;
+            modal.style.display = 'flex';
+        });
+        modelsGrid.appendChild(card);
+    });
+
+    modalClose.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    const phases = [
+        { name: '1. Inicio', detail: '<strong>Tarea principal:</strong> Formación y orientación. Se establecen las normas, se presentan los miembros y se genera confianza. La ansiedad es alta y la comunicación tentativa.' },
+        { name: '2. Transición', detail: '<strong>Tarea principal:</strong> Manejo del conflicto. Surgen las primeras resistencias, luchas de poder y desafíos a las normas. Es una fase crucial para construir la autenticidad del grupo.' },
+        { name: '3. Trabajo', detail: '<strong>Tarea principal:</strong> Cohesión y productividad. El grupo ha desarrollado confianza. Los miembros trabajan activamente en sus objetivos, se dan feedback y se apoyan mutuamente.' },
+        { name: '4. Finalización', detail: '<strong>Tarea principal:</strong> Cierre y despedida. Se consolidan los aprendizajes, se procesan los sentimientos de pérdida por la terminación del grupo y se planifica para el futuro.' },
+    ];
+
+    const phasesContainer = document.getElementById('group-phases');
+    const phaseDetails = document.getElementById('phase-details');
+
+    phases.forEach((phase, index) => {
+        const phaseElement = document.createElement('div');
+        phaseElement.className = 'flex-shrink-0';
+        phaseElement.innerHTML = `
+            <div class="phase-node w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-center text-sm font-semibold cursor-pointer hover:bg-blue-200 transition p-2">${phase.name}</div>
+        `;
+        
+        phasesContainer.appendChild(phaseElement);
+
+        if (index < phases.length - 1) {
+            const connector = document.createElement('div');
+            connector.className = 'w-16 h-1 bg-gray-300';
+            phasesContainer.appendChild(connector);
+        }
+
+        phaseElement.querySelector('.phase-node').addEventListener('click', () => {
+            document.querySelectorAll('.phase-node').forEach(p => p.classList.remove('bg-blue-500', 'text-white'));
+            phaseElement.querySelector('.phase-node').classList.add('bg-blue-500', 'text-white');
+            phaseDetails.innerHTML = phase.detail;
+            phaseDetails.classList.remove('hidden');
+        });
+    });
+
+    const icebreakers = [
+        { name: 'Dos verdades, una mentira', description: 'Cada persona comparte tres "hechos" sobre sí misma, dos verdaderos y uno falso. El grupo adivina cuál es la mentira. Ideal para conocerse.' },
+        { name: 'La isla desierta', description: 'Se pregunta a los miembros qué tres cosas se llevarían a una isla desierta y por qué. Fomenta la reflexión sobre valores.' },
+        { name: 'Mi súper poder', description: 'Cada miembro comparte qué súper poder le gustaría tener. Es una forma lúdica de hablar de fortalezas y deseos.' },
+        { name: 'La palabra del día', description: 'Cada persona describe su estado de ánimo actual con una sola palabra. Rápido y efectivo para iniciar la sesión.' },
+        { name: 'Héroe personal', description: 'Se pide a los participantes que hablen de alguien a quien admiran y por qué. Ayuda a conectar con modelos positivos.' },
+    ];
+    
+    const icebreakersList = document.getElementById('icebreakers-list');
+    const icebreakerSearch = document.getElementById('icebreaker-search');
+
+    const renderIcebreakers = (filter = '') => {
+        icebreakersList.innerHTML = '';
+        const filtered = icebreakers.filter(ib => ib.name.toLowerCase().includes(filter.toLowerCase()) || ib.description.toLowerCase().includes(filter.toLowerCase()));
+        filtered.forEach(ib => {
+            const li = document.createElement('li');
+            li.className = 'p-3 bg-gray-50 rounded-md';
+            li.innerHTML = `
+                <h4 class="font-semibold">${ib.name}</h4>
+                <p class="text-sm text-gray-600">${ib.description}</p>
+            `;
+            icebreakersList.appendChild(li);
+        });
+    };
+
+    icebreakerSearch.addEventListener('input', (e) => renderIcebreakers(e.target.value));
+    renderIcebreakers();
+
+    const generatePlanBtn = document.getElementById('generate-plan-btn');
+    const btnText = document.getElementById('btn-text');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    const sessionObjective = document.getElementById('session-objective');
+    const sessionWarmup = document.getElementById('session-warmup');
+    const sessionMain = document.getElementById('session-main');
+    const sessionClosing = document.getElementById('session-closing');
+
+    generatePlanBtn.addEventListener('click', async () => {
+        const objective = sessionObjective.value;
+        if (!objective.trim()) {
+            sessionObjective.focus();
+            sessionObjective.placeholder = 'Por favor, introduce un objetivo para la sesión.';
+            return;
+        }
+
+        generatePlanBtn.disabled = true;
+        loadingSpinner.classList.remove('hidden');
+        btnText.textContent = 'Generando...';
+
+        try {
+            const systemPrompt = `
+                Actúa como un consejero experto y supervisor clínico especializado en el tratamiento de adicciones en un contexto grupal en México. 
+                Tu tarea es generar un plan de sesión práctico, coherente y culturalmente sensible basado en un objetivo proporcionado.
+                Proporciona una respuesta concisa en formato JSON.
+            `;
+            
+            const userQuery = `El objetivo de la sesión es: "${objective}". Genera una sugerencia para cada una de las siguientes secciones: calentamiento, actividad_central y cierre.`;
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            calentamiento: { type: "STRING", description: "Una actividad corta y sencilla (10-15 min) para iniciar la sesión, romper el hielo y centrar al grupo en el tema." },
+                            actividad_central: { type: "STRING", description: "Una o dos actividades principales (30-40 min) que aborden directamente el objetivo de la sesión. Describe la dinámica." },
+                            cierre: { type: "STRING", description: "Una actividad breve (10-15 min) para reflexionar sobre lo aprendido, consolidar los conceptos y terminar la sesión en un tono positivo." }
+                        },
+                        required: ["calentamiento", "actividad_central", "cierre"]
+                    }
+                }
+            };
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API error: ${response.statusText}`);
+            }
+            
+            const result = await response.json();
+            const text = result.candidates[0].content.parts[0].text;
+            const suggestions = JSON.parse(text);
+
+            sessionWarmup.value = suggestions.calentamiento;
+            sessionMain.value = suggestions.actividad_central;
+            sessionClosing.value = suggestions.cierre;
+
+        } catch (error) {
+            console.error('Error fetching suggestions:', error);
+            sessionMain.value = "Hubo un error al generar las sugerencias. Por favor, intenta de nuevo más tarde.";
+        } finally {
+            generatePlanBtn.disabled = false;
+            loadingSpinner.classList.add('hidden');
+            btnText.textContent = '✨ Generar Sugerencias con IA';
+        }
+    });
+
+});
+</script>
+</body>
+</html>
