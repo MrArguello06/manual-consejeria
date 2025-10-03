@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Técnicas de Intervención Grupal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados y paleta de colores */
+        :root {
+            --bg-main: #FDF6E3; /* Crema claro */
+            --primary-accent: #800000; /* Marrón/Vino oscuro */
+            --text-dark: #3a2e2c; /* Café oscuro */
+            --text-light: #f3e9e0; /* Crema para texto sobre fondos oscuros */
+            --border-color: #d1c4b5; /* Borde sutil */
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--primary-accent);
+        }
+
+        /* Estilo para la barra de navegación activa */
+        .sidebar-link.active {
+            background-color: var(--primary-accent);
+            color: var(--text-light);
+            transform: translateX(10px);
+        }
+        
+        /* Estilo para el contenido principal */
+        .content-section h2 {
+            border-bottom: 2px solid var(--primary-accent);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section h3 {
+             color: var(--text-dark);
+             font-weight: 600;
+        }
+        
+        .custom-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .custom-table th, .custom-table td {
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            text-align: left;
+        }
+        .custom-table th {
+            background-color: var(--primary-accent);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+        }
+        .custom-table tr:nth-child(even) {
+            background-color: #f7f1e9;
+        }
+    </style>
+</head>
+<body class="text-lg">
+
+    <!-- Botón de menú para móvil -->
+    <button id="menu-btn" class="fixed top-4 right-4 z-50 p-2 bg-[var(--primary-accent)] text-[var(--text-light)] rounded-md lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+    </button>
+
+    <div class="flex">
+        <!-- Barra lateral de navegación -->
+        <aside id="sidebar" class="w-80 min-h-screen bg-[#f7f1e9] p-6 fixed top-0 left-0 -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 lg:block z-40 shadow-lg">
+            <h1 class="text-2xl font-bold mb-6 text-center">Menú de Contenido</h1>
+            <nav>
+                <ul class="space-y-2">
+                    <!-- Sección I -->
+                    <li>
+                        <h2 class="text-xl font-semibold mt-4 mb-2">Sección I: Fundamentos</h2>
+                        <ul class="ml-4 space-y-2 border-l-2 border-[var(--border-color)]">
+                            <li><a href="#cap1" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 1: Marco Normativo</a></li>
+                            <li><a href="#cap2" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 2: Principios Terapéuticos</a></li>
+                        </ul>
+                    </li>
+                    <!-- Sección II -->
+                    <li>
+                        <h2 class="text-xl font-semibold mt-4 mb-2">Sección II: Plan de Consejería</h2>
+                        <ul class="ml-4 space-y-2 border-l-2 border-[var(--border-color)]">
+                           <li><a href="#cap3" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 3: Diseño e Implementación</a></li>
+                           <li><a href="#cap4" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 4: Etapas del Tratamiento</a></li>
+                        </ul>
+                    </li>
+                    <!-- Sección III -->
+                    <li>
+                        <h2 class="text-xl font-semibold mt-4 mb-2">Sección III: Modelos y Técnicas</h2>
+                         <ul class="ml-4 space-y-2 border-l-2 border-[var(--border-color)]">
+                            <li><a href="#cap5" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 5: Modelo Transteórico y EM</a></li>
+                            <li><a href="#cap6" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 6: TCC Grupal</a></li>
+                            <li><a href="#cap7" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 7: Prevención de Recaídas</a></li>
+                            <li><a href="#cap8" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 8: Dinámicas y Ejercicios</a></li>
+                        </ul>
+                    </li>
+                    <!-- Sección IV -->
+                    <li>
+                        <h2 class="text-xl font-semibold mt-4 mb-2">Sección IV: Rol del Consejero</h2>
+                         <ul class="ml-4 space-y-2 border-l-2 border-[var(--border-color)]">
+                             <li><a href="#cap9" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 9: Competencias y Ética</a></li>
+                             <li><a href="#cap10" class="sidebar-link block py-2 px-4 rounded-r-lg transition-all duration-200 hover:bg-[var(--primary-accent)] hover:text-[var(--text-light)] hover:translate-x-2">Cap. 10: Prevención de Conductas Antisociales</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="lg:ml-80 p-6 md:p-10 w-full">
+            <header class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight">Manual de Técnicas de Intervención Grupal para el Tratamiento de Adicciones en México</h1>
+                <p class="text-xl mt-4 font-semibold">Un Enfoque para la Consejería y la Prevención de Conductas Antisociales</p>
+            </header>
+
+            <!-- Aquí se insertará todo el contenido del documento, sección por sección -->
+            <div class="space-y-12">
+
+                <!-- SECCIÓN I -->
+                <section id="sec1" class="content-section">
+                    <h2 class="text-3xl md:text-4xl">Sección I: Fundamentos de la Consejería Grupal en el Contexto Mexicano</h2>
+                    <p class="mt-4 text-xl leading-relaxed">La aproximación al tratamiento de adicciones en México es un complejo tapiz tejido con hilos de servicios profesionales formales, regulados por el gobierno, y una vasta y profundamente arraigada red de grupos de ayuda mutua no profesionales. Comprender esta dualidad es crucial para cualquier consejero. El sistema formal proporciona el marco basado en evidencia (el "qué"), mientras que la prevalencia de los grupos de ayuda mutua resalta un poderoso énfasis cultural en la experiencia compartida y el apoyo comunitario (el "cómo"). Un consejero eficaz en México debe ser capaz de navegar ambos mundos, integrando técnicas profesionales con una apreciación del poder de la recuperación impulsada por pares. El futuro profesional debe estar preparado para comprender que sus usuarios probablemente tendrán experiencia o serán referidos a estos grupos comunitarios, haciendo indispensable una colaboración respetuosa con dichos recursos.</p>
+                </section>
+
+                <section id="cap1" class="content-section">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 1: Marco Normativo e Institucional del Tratamiento de Adicciones en México</h3>
+                    <h4 class="text-xl font-semibold mt-6 mb-3">Introducción al Sistema de Salud Mexicano en Adicciones</h4>
+                    <p class="mb-4 leading-relaxed">El abordaje de las adicciones en México se estructura a través de una red de servicios que incluye tres fuentes principales: el sector público, los servicios profesionales de salud privados y las organizaciones de la sociedad civil (OSC), que abarcan desde grupos de autoayuda tradicionales hasta centros residenciales. El rol rector de este sistema recae en la Secretaría de Salud, que ejerce su función a través de la Comisión Nacional contra las Adicciones (CONADIC), entidad encargada de coordinar las políticas y programas en la materia a nivel nacional.</p>
+                    
+                    <h4 class="text-xl font-semibold mt-6 mb-3">La Norma Oficial Mexicana NOM-028-SSA2-2009</h4>
+                    <p class="mb-4 leading-relaxed">El pilar legal que rige la prestación de servicios en este campo es la Norma Oficial Mexicana NOM-028-SSA2-2009, Para la prevención, tratamiento y control de las adicciones. Este documento es de observancia obligatoria en todo el territorio nacional y establece los criterios mínimos de calidad y operación para todos los establecimientos dedicados a la atención de adicciones. Sus puntos clave son:</p>
+                    <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Objetivo y Campo de Aplicación:</b> Su propósito es establecer los procedimientos y criterios para la atención integral de las adicciones, abarcando desde la prevención hasta el tratamiento y la rehabilitación.</li>
+                        <li><b>Modalidades de Tratamiento:</b> La norma define y diferencia claramente dos modalidades principales de atención:
+                            <ul class="list-circle list-inside ml-6 mt-2 space-y-2">
+                                <li><b>No Residencial (Ambulatorio):</b> Incluye servicios como la atención de urgencias y la consulta externa, donde el usuario acude a sus sesiones sin necesidad de internamiento.</li>
+                                <li><b>Residencial:</b> Implica el internamiento del usuario en un establecimiento especializado para recibir un programa de atención integral.</li>
+                            </ul>
+                        </li>
+                        <li><b>Principios Fundamentales:</b> La NOM-028 enfatiza un enfoque de atención basado en el respeto a los derechos humanos y la dignidad de la persona. Exige el cumplimiento de principios éticos como la confidencialidad de la información, la obtención del consentimiento informado del usuario antes de cualquier intervención, y la provisión de una atención integral y multidisciplinaria. Estas directrices se alinean con las reformas más recientes a la Ley General de Salud, que otorgan carácter prioritario a la salud mental y la prevención de adicciones, y prohíben la discriminación y los tratos crueles o inhumanos.</li>
+                    </ul>
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Actores Institucionales Clave</h4>
+                     <p class="mb-4 leading-relaxed">Dentro del marco normativo, diversas instituciones desempeñan roles cruciales en la implementación de las políticas de atención a las adicciones:</p>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                         <li><b>Comisión Nacional contra las Adicciones (CONADIC):</b> Como órgano rector, sus funciones incluyen el desarrollo de políticas públicas, la normatividad, el registro y la supervisión de establecimientos especializados, y el otorgamiento de aval técnico a programas de tratamiento. Ha desarrollado manuales y guías técnicas para orientar la práctica clínica, como el "Programa de Satisfactores Cotidianos para Usuarios con Dependencia a Sustancias Adictivas".</li>
+                         <li><b>Centros de Integración Juvenil (CIJ):</b> Con más de 55 años de experiencia, el CIJ es una asociación civil pionera y un referente en el país. Su modelo de atención se caracteriza por ser multidisciplinario, integrando a profesionales de la medicina, psicología y trabajo social. Ofrecen un abanico de servicios que incluye terapia individual, familiar y grupal, tanto en modalidad ambulatoria como residencial. Además de la atención directa, el CIJ tiene un fuerte componente de prevención, investigación y enseñanza, contribuyendo a la formación de profesionales en el campo de las adicciones.</li>
+                         <li><b>Otras Entidades:</b> La red de atención se complementa con una estructura descentralizada que incluye los Consejos Estatales contra las Adicciones (CECA) y los Comités Municipales contra las Adicciones (COMCA), encargados de coordinar las acciones a nivel local. También son parte fundamental de la red las Unidades de Especialidades Médicas - Centros de Atención Primaria en Adicciones (UNEME-CAPA), que ofrecen servicios de detección y tratamiento breve a nivel comunitario. En la Ciudad de México, el Instituto para la Atención y Prevención de las Adicciones (IAPA) juega un rol importante en la coordinación de servicios y el registro de centros.</li>
+                    </ul>
+                </section>
+
+                <section id="cap2" class="content-section">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 2: Principios Terapéuticos de la Intervención Grupal</h3>
+                    <h4 class="text-xl font-semibold mt-6 mb-3">Definición y Objetivos de la Terapia Grupal en Adicciones</h4>
+                    <p class="mb-4 leading-relaxed">La terapia grupal es una modalidad de intervención psicológica donde un pequeño grupo de personas con problemáticas similares se reúne de forma regular, bajo la guía de uno o más terapeutas profesionales, para trabajar en su recuperación. Se constituye como un espacio seguro, estructurado y confidencial, diseñado para fomentar el cambio a través de la interacción, el apoyo mutuo y el aprendizaje interpersonal.</p>
+                    <p class="mb-4 leading-relaxed font-semibold">Los objetivos fundamentales de la terapia grupal en el tratamiento de adicciones son:</p>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li>Romper el aislamiento y la soledad inherentes a la adicción, creando un sentido de pertenencia.</li>
+                        <li>Fomentar la conciencia de enfermedad, permitiendo a los participantes comprender la naturaleza de la adicción y sus consecuencias.</li>
+                        <li>Desarrollar y practicar habilidades de afrontamiento para manejar el deseo de consumo (craving) y las situaciones de alto riesgo.</li>
+                        <li>Promover la identificación mutua, donde los miembros se ven reflejados en las experiencias de otros, lo que reduce la vergüenza y el estigma.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-semibold mt-6 mb-3">Factores Terapéuticos (Modelo Interpersonal de Yalom)</h4>
+                    <p class="mb-4 leading-relaxed">El poder transformador de la terapia grupal no es accidental; se debe a la activación de una serie de "factores terapéuticos" o mecanismos de cambio. El modelo de Irvin Yalom, adaptado al contexto de las adicciones, describe los siguientes elementos clave:</p>
+                    <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Infusión de Esperanza:</b> Observar el progreso de compañeros que están más avanzados en el proceso de recuperación inspira confianza en la propia capacidad de cambio.</li>
+                        <li><b>Universalidad:</b> El descubrimiento de que otros comparten sentimientos, pensamientos y problemas similares es un poderoso antídoto contra la sensación de aislamiento y anormalidad. Reduce la culpa y la vergüenza asociadas al problema.</li>
+                        <li><b>Transmisión de Información (Psicoeducación):</b> El grupo se convierte en un vehículo para la instrucción didáctica. Los terapeutas y los propios miembros comparten información valiosa sobre la adicción, la recuperación y las estrategias de afrontamiento.</li>
+                        <li><b>Altruismo:</b> El acto de ofrecer ayuda, apoyo y retroalimentación a otros miembros del grupo tiene un profundo efecto terapéutico. Aumenta la autoestima, el sentido de valor y la competencia personal.</li>
+                        <li><b>Desarrollo de Técnicas de Socialización:</b> El grupo funciona como un "microcosmos social", un laboratorio seguro donde los miembros pueden experimentar con nuevas conductas interpersonales, recibir retroalimentación honesta y aprender a relacionarse de manera más saludable.</li>
+                        <li><b>Comportamiento Imitativo (Aprendizaje Vicario):</b> Los participantes aprenden observando y modelando las estrategias de afrontamiento, las habilidades de comunicación y las conductas prosociales de los terapeutas y de otros miembros del grupo.</li>
+                        <li><b>Catarsis:</b> La expresión intensa de emociones en un ambiente de aceptación y apoyo incondicional produce una sensación de alivio y liberación, facilitando una conexión más profunda con el propio mundo interior y con los demás.</li>
+                    </ul>
+                    
+                    <h4 class="text-xl font-semibold mt-6 mb-3">Terapia Grupal Profesional vs. Grupos de Ayuda Mutua (GAM)</h4>
+                    <p class="mb-4 leading-relaxed">En el panorama mexicano, es fundamental establecer una distinción clara, aunque no jerárquica, entre la terapia grupal profesional y los Grupos de Ayuda Mutua (GAM).</p>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white/50 p-6 rounded-lg shadow-md">
+                            <h5 class="text-lg font-bold mb-2">Terapia Grupal Profesional</h5>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li><b>Dirección:</b> Es conducida por uno o más terapeutas con formación académica y credenciales profesionales (psicólogos, psiquiatras, consejeros certificados).</li>
+                                <li><b>Metodología:</b> Se basa en modelos teóricos y técnicas con evidencia científica, como la Terapia Cognitivo-Conductual o la Entrevista Motivacional.</li>
+                                <li><b>Enfoque:</b> Se centra en la comprensión y modificación de procesos psicológicos subyacentes (cogniciones, emociones, patrones de conducta) y en el desarrollo de habilidades específicas.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/50 p-6 rounded-lg shadow-md">
+                            <h5 class="text-lg font-bold mb-2">Grupos de Ayuda Mutua (GAM)</h5>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li><b>Ejemplos:</b> Incluyen organizaciones como Alcohólicos Anónimos (AA), Narcóticos Anónimos (NA) y una vasta red de centros residenciales conocidos popularmente como "anexos".</li>
+                                <li><b>Dirección:</b> Son autogestionados y dirigidos por sus propios miembros (personas en recuperación). El principio fundamental es el apoyo de par a par.</li>
+                                <li><b>Metodología:</b> Se basan en la experiencia compartida, la identificación mutua y, comúnmente, en un programa estructurado de pasos espirituales y prácticos (ej. los 12 Pasos de AA).</li>
+                                <li><b>Prevalencia en México:</b> Los GAM constituyen el recurso de atención más utilizado en el país para problemas de consumo, con un 53.8% de las personas que buscan tratamiento recurriendo a ellos. México es el tercer país con mayor número de grupos de AA en el mundo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <p class="mt-4 leading-relaxed bg-[var(--primary-accent)] text-[var(--text-light)] p-4 rounded-lg">El consejero profesional debe conocer, respetar y comprender el funcionamiento de los GAM. No son modalidades competidoras, sino complementarias en el ecosistema de la recuperación. Una referencia adecuada a un GAM puede ser un componente vital del plan de postratamiento de un usuario, proporcionando una red de apoyo a largo plazo, accesible y continua.</p>
+                </section>
+                
+                <!-- SECCIÓN II -->
+                <section id="sec2" class="content-section">
+                    <h2 class="text-3xl md:text-4xl">Sección II: Estructura y Fases del Plan de Consejería Grupal</h2>
+                    <p class="mt-4 text-xl leading-relaxed">La efectividad de la consejería grupal no reside en la aplicación aislada de técnicas, sino en su implementación estructurada y secuencial, alineada tanto con la dinámica del grupo como con la trayectoria de recuperación individual del usuario. Un plan de consejería exitoso es un "organismo vivo" que debe ser diseñado con una arquitectura clara (objetivos, normas, formato) pero ejecutado con la flexibilidad para adaptarse a las fases del tratamiento, desde la desintoxicación hasta la reinserción. La rigidez en la estructura condena al fracaso, mientras que la falta de estructura conduce al caos. Es imperativo que el consejero aprenda a ser un arquitecto de programas, diseñando primero el "edificio" del grupo y luego adaptando el uso de cada "piso" según la etapa en la que se encuentren los participantes.</p>
+                </section>
+
+                <section id="cap3" class="content-section">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 3: Diseño e Implementación de un Programa de Terapia Grupal</h3>
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Fase de Planificación</h4>
+                    <p class="mb-4 leading-relaxed">Antes de la primera sesión, es crucial una planificación meticulosa que siente las bases para el éxito del grupo.</p>
+                    <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Definición de Objetivos:</b> Los objetivos del grupo deben ser específicos, medibles, alcanzables, relevantes y con un plazo definido (SMART). Deben basarse en las necesidades de la población a atender, tal como lo estipula el Estándar de Competencia EC0548. Un ejemplo de objetivo bien formulado sería: "Al finalizar las 12 sesiones del programa de prevención de recaídas, los participantes serán capaces de identificar verbalmente tres de sus situaciones personales de alto riesgo y describir al menos dos estrategias de afrontamiento conductuales o cognitivas para cada una".</li>
+                        <li><b>Criterios de Selección y Composición del Grupo:</b> La composición del grupo influye significativamente en su dinámica. Se debe decidir entre:
+                            <ul class="list-circle list-inside ml-6 mt-2 space-y-2">
+                                <li><b>Grupos Homogéneos:</b> Compuestos por miembros con características similares (ej. misma sustancia de impacto, mismo grupo de edad, solo mujeres). La ventaja es una rápida identificación y cohesión.</li>
+                                <li><b>Grupos Heterogéneos:</b> Miembros con diversas características. La ventaja es una mayor riqueza de perspectivas y experiencias. Se deben establecer criterios de inclusión claros (ej. diagnóstico de trastorno por uso de sustancias, motivación mínima para el cambio) y de exclusión (ej. psicosis activa, crisis suicida aguda que requiera atención individual prioritaria).</li>
+                            </ul>
+                        </li>
+                         <li><b>Logística del Grupo:</b>
+                            <ul class="list-circle list-inside ml-6 mt-2 space-y-2">
+                                <li><b>Formato:</b> Decidir si el grupo será abierto (los miembros pueden entrar y salir en cualquier momento) o cerrado (los mismos miembros permanecen desde el inicio hasta el final). Los grupos cerrados son ideales para programas estructurados y secuenciales, ya que fomentan una mayor cohesión y confianza.</li>
+                                <li><b>Tamaño:</b> El tamaño ideal para un grupo de terapia oscila entre 8 y 12 participantes. Menos de 5 puede limitar la interacción, y más de 15 dificulta la participación equitativa y el manejo por parte del terapeuta.</li>
+                                <li><b>Frecuencia y Duración:</b> Las sesiones suelen ser semanales o quincenales, con una duración estándar de 90 a 120 minutos.</li>
+                                <li><b>Modalidad:</b> Aunque tradicionalmente presencial, la modalidad en línea (telepsicología) ha demostrado ser una alternativa viable y eficaz, especialmente para superar barreras geográficas o de movilidad.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4 class="text-xl font-semibold mt-6 mb-3">Fase de Inicio</h4>
+                     <p class="mb-4 leading-relaxed">Las primeras sesiones son críticas para establecer el tono y la estructura del grupo.</p>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>La Primera Sesión:</b> Los pasos iniciales incluyen dar la bienvenida, facilitar la presentación de los miembros y los terapeutas, y comenzar a establecer un ambiente de confianza y seguridad (rapport).</li>
+                        <li><b>Establecimiento del Contrato Terapéutico y Normas del Grupo:</b> Es fundamental co-crear y formalizar un contrato de grupo que todos los miembros acuerden y, preferiblemente, firmen. Este contrato debe incluir normas explícitas:
+                            <ul class="list-circle list-inside ml-6 mt-2 space-y-2">
+                                <li><b>Confidencialidad:</b> "Lo que se dice en el grupo, se queda en el grupo". Se deben explicar también los límites legales de la confidencialidad (riesgo de daño a sí mismo o a terceros).</li>
+                                <li><b>Respeto y No Juicio:</b> Fomentar un ambiente donde todas las experiencias son válidas y se escuchan sin críticas destructivas.</li>
+                                <li><b>Puntualidad y Asistencia:</b> Establecer reglas claras sobre la importancia de llegar a tiempo y notificar las ausencias. Se puede fijar un número máximo de faltas permitidas.</li>
+                                <li><b>Participación y Escucha:</b> Promover la participación activa, el uso de la primera persona ("yo siento", "yo pienso"), y la escucha atenta sin interrumpir.</li>
+                                <li><b>Abstinencia:</b> Es una norma común que los miembros asistan a la sesión libres de la influencia de sustancias psicoactivas. En muchos programas, esto se verifica mediante pruebas de alcoholemia u otros métodos antes de cada sesión.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Fase de Trabajo y Cierre</h4>
+                     <p class="mb-4 leading-relaxed">Una sesión bien estructurada maximiza el tiempo y mantiene el enfoque. La siguiente tabla presenta un modelo replicable.</p>
+                     <div class="overflow-x-auto">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Fase de la Sesión</th>
+                                    <th>Tiempo Estimado</th>
+                                    <th>Objetivo</th>
+                                    <th>Actividades/Técnicas del Consejero</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Bienvenida y Check-in</td>
+                                    <td>10-15 min</td>
+                                    <td>Crear un ambiente de transición y evaluar el estado actual de los miembros.</td>
+                                    <td>"Saludo cordial. Ronda breve donde cada miembro comparte cómo llega a la sesión, su estado de ánimo y si ha habido consumo desde la última reunión."</td>
+                                </tr>
+                                <tr>
+                                    <td>Revisión de Tareas</td>
+                                    <td>15-20 min</td>
+                                    <td>Reforzar el aprendizaje y conectar el trabajo entre sesiones.</td>
+                                    <td>Revisar las tareas asignadas (ej. autorregistros). Explorar éxitos y dificultades. Reforzar positivamente los esfuerzos y logros.</td>
+                                </tr>
+                                <tr>
+                                    <td>Introducción del Tema</td>
+                                    <td>10 min</td>
+                                    <td>Presentar el objetivo y la estructura de la sesión del día.</td>
+                                    <td>"El consejero presenta el tema (ej. ""Manejo de la presión social"") de forma psicoeducativa, utilizando material de apoyo si es necesario."</td>
+                                </tr>
+                                <tr>
+                                    <td>Discusión/Actividad Grupal</td>
+                                    <td>40-45 min</td>
+                                    <td>Profundizar en el tema a través de la interacción y la práctica.</td>
+                                    <td>"Facilitar la discusión, realizar ejercicios (ej. role-playing, lluvia de ideas), o procesar experiencias personales relacionadas con el tema."</td>
+                                </tr>
+                                <tr>
+                                    <td>Cierre y Asignación de Tareas</td>
+                                    <td>10 min</td>
+                                    <td>Resumir los aprendizajes, reforzar los avances y planificar la próxima semana.</td>
+                                    <td>Ronda de cierre donde cada miembro comparte con qué se queda de la sesión. Asignar una nueva tarea para practicar lo aprendido.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <p class="mb-4 leading-relaxed"><b>Manejo de Desafíos Grupales:</b> El consejero debe estar preparado para manejar dinámicas complejas, como la resistencia al cambio, los conflictos entre miembros, la participación excesiva de algunos (monopolizadores) o la falta de participación de otros. El Estándar EC0548 subraya la competencia para reformular comportamientos negativos y aplicar acciones disciplinarias si es necesario, siempre preservando los derechos humanos.</p>
+                     <p class="mb-4 leading-relaxed"><b>Terminación del Grupo:</b> En los grupos cerrados, las últimas sesiones deben dedicarse a preparar la finalización. Esto implica revisar los logros individuales y grupales, discutir los miedos y planes para el futuro, y gestionar la "ansiedad de separación" al despedirse de una fuente importante de apoyo.</p>
+                </section>
+                
+                <section id="cap4" class="content-section">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 4: La Consejería Grupal a través de las Etapas del Tratamiento</h3>
+                    <p class="mb-4 leading-relaxed">El contenido y el enfoque de la terapia grupal deben evolucionar para alinearse con las fases del proceso de recuperación integral del usuario.</p>
+                    <div class="space-y-6">
+                        <div class="bg-white/50 p-6 rounded-lg shadow">
+                            <h4 class="text-xl font-bold">Fase 1: Desintoxicación</h4>
+                            <p><b>Objetivo Grupal:</b> Apoyo mutuo, manejo de los síntomas del síndrome de abstinencia y psicoeducación básica sobre la recuperación inicial.</p>
+                            <p><b>Técnicas y Enfoque:</b> El grupo funciona principalmente como un espacio de contención emocional. Se normalizan las experiencias físicas y emocionales del síndrome de abstinencia, reduciendo el miedo y la ansiedad. Se introduce psicoeducación sobre los efectos inmediatos de la abstinencia y la importancia de la nutrición y el descanso. Se practican técnicas de relajación y manejo del estrés para lidiar con la incomodidad física y psicológica.</p>
+                        </div>
+                        <div class="bg-white/50 p-6 rounded-lg shadow">
+                            <h4 class="text-xl font-bold">Fase 2: Deshabituación</h4>
+                            <p><b>Objetivo Grupal:</b> Identificar los patrones de pensamiento y comportamiento que sostienen la adicción y comenzar a construir nuevas rutinas saludables.</p>
+                            <p><b>Técnicas y Enfoque:</b> Esta fase es ideal para introducir el análisis funcional de la conducta de consumo. Los miembros aprenden a identificar sus disparadores personales (internos y externos) y las consecuencias que refuerzan su consumo. El grupo trabaja en la creación de nuevas rutinas y en la búsqueda de actividades gratificantes que no involucren sustancias, rompiendo así el hábito.</p>
+                        </div>
+                        <div class="bg-white/50 p-6 rounded-lg shadow">
+                            <h4 class="text-xl font-bold">Fase 3: Rehabilitación</h4>
+                            <p><b>Objetivo Grupal:</b> Profundizar en el autoconocimiento, sanar aspectos emocionales subyacentes y desarrollar un repertorio robusto de habilidades de afrontamiento.</p>
+                            <p><b>Técnicas y Enfoque:</b> Esta es la fase más intensiva del trabajo terapéutico. Se aplican plenamente las técnicas de los modelos basados en evidencia: Terapia Cognitivo-Conductual (TCC), Prevención de Recaídas y Entrenamiento en Habilidades de comunicación asertiva, solución de problemas y regulación emocional. El grupo se convierte en el principal "campo de entrenamiento".</p>
+                        </div>
+                        <div class="bg-white/50 p-6 rounded-lg shadow">
+                            <h4 class="text-xl font-bold">Fase 4: Reinserción</h4>
+                            <p><b>Objetivo Grupal:</b> Preparar la transición a la vida cotidiana, anticipar desafíos del "mundo real" y consolidar un plan de mantenimiento a largo plazo.</p>
+                            <p><b>Técnicas y Enfoque:</b> El foco se desplaza de la adquisición de habilidades a su aplicación práctica. Se discuten temas como la reconstrucción de redes de apoyo, la búsqueda de empleo o la vuelta a los estudios, el manejo del tiempo libre y cómo afrontar el estigma. El grupo actúa como un "ancla" de apoyo.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECCIÓN III -->
+                <section id="sec3" class="content-section">
+                     <h2 class="text-3xl md:text-4xl">Sección III: Modelos y Técnicas de Intervención Basados en Evidencia</h2>
+                     <p class="mt-4 text-xl leading-relaxed">Los modelos de intervención más efectivos en adicciones no son mutuamente excluyentes, sino que funcionan como un sistema integrado. El Modelo Transteórico (Prochaska & DiClemente) actúa como el "sistema operativo" que diagnostica la disposición del usuario al cambio. La Entrevista Motivacional es la "interfaz de usuario" que facilita el compromiso inicial y resuelve la ambivalencia. La Terapia Cognitivo-Conductual (TCC) es el "software de aplicación" que reescribe el código de pensamientos y conductas disfuncionales. Finalmente, el Modelo de Prevención de Recaídas (PR) es el "programa de mantenimiento y seguridad" que protege el sistema a largo plazo. Un consejero experto no elige un único modelo, sino que los integra fluidamente según la necesidad del grupo y de sus miembros en cada momento.</p>
+                     
+                     <div class="overflow-x-auto mt-6">
+                        <table class="custom-table">
+                            <caption><h4 class="text-xl font-bold mb-2">Tabla Comparativa de Modelos Terapéuticos</h4></caption>
+                            <thead>
+                                <tr>
+                                    <th>Característica</th>
+                                    <th>Entrevista Motivacional (EM)</th>
+                                    <th>Terapia Cognitivo-Conductual (TCC)</th>
+                                    <th>Prevención de Recaídas (PR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Base Teórica</b></td>
+                                    <td>"Humanista, centrada en el cliente."</td>
+                                    <td>Teoría del aprendizaje social y cognitivo.</td>
+                                    <td>Modelo de aprendizaje social-cognitivo.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Objetivo Principal</b></td>
+                                    <td>Explorar y resolver la ambivalencia para aumentar la motivación intrínseca al cambio.</td>
+                                    <td>Modificar patrones de pensamiento disfuncionales y conductas desadaptativas.</td>
+                                    <td>Mantener la abstinencia y prevenir las recaídas a través del autocontrol.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Rol del Terapeuta</b></td>
+                                    <td>"Colaborativo, evocador. Un guía que acompaña."</td>
+                                    <td>"Directivo, educativo. Un entrenador."</td>
+                                    <td>"Educativo, de apoyo. Un coach."</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Foco de Intervención</b></td>
+                                    <td>"""Discurso de cambio"" del usuario, discrepancia entre valores y conducta actual."</td>
+                                    <td>"Relación entre pensamientos, emociones y conductas. Creencias nucleares."</td>
+                                    <td>Identificación y afrontamiento de situaciones de alto riesgo. Estilo de vida.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Técnicas Clave</b></td>
+                                    <td>"Preguntas abiertas, afirmaciones, reflejos, resúmenes (PARE/OARS), balanza decisional."</td>
+                                    <td>"Análisis funcional, reestructuración cognitiva, entrenamiento en habilidades, exposición."</td>
+                                    <td>"Identificación de disparadores, desarrollo de estrategias de afrontamiento, manejo del EVA."</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <section id="cap5" class="content-section">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 5: El Modelo Transteórico del Cambio y la Entrevista Motivacional en Grupo</h3>
+                    
+                    <h4 class="text-xl font-semibold mt-6 mb-3">El Modelo Transteórico (Prochaska & DiClemente)</h4>
+                    <p class="mb-4 leading-relaxed">Este modelo postula que el cambio de conducta no es un evento único, sino un proceso que se desarrolla a través de una serie de etapas. Identificar la etapa en la que se encuentra un usuario es fundamental para aplicar la intervención correcta y evitar generar resistencia.</p>
+                    <p class="mb-4 leading-relaxed font-semibold">Descripción de las Etapas:</p>
+                    <ul class="list-decimal list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Precontemplación:</b> La persona no considera que su consumo sea un problema y no tiene intención de cambiar.</li>
+                        <li><b>Contemplación:</b> La persona es consciente de que existe un problema, pero se siente ambivalente, sopesando los pros y los contras de cambiar.</li>
+                        <li><b>Preparación (Determinación):</b> La persona ha decidido cambiar y comienza a planificar acciones concretas.</li>
+                        <li><b>Acción:</b> La persona modifica activamente su conducta y su entorno para superar el problema.</li>
+                        <li><b>Mantenimiento:</b> La persona trabaja para consolidar los cambios logrados y prevenir recaídas.</li>
+                        <li><b>Recaída:</b> La persona vuelve al patrón de consumo anterior. Es vista como una parte normal del proceso de aprendizaje, no como un fracaso.</li>
+                    </ul>
+
+                     <div class="overflow-x-auto mt-6">
+                        <table class="custom-table">
+                             <caption><h4 class="text-xl font-bold mb-2">Tabla de Intervenciones por Etapa de Cambio</h4></caption>
+                            <thead>
+                                <tr>
+                                    <th>Etapa de Cambio</th>
+                                    <th>Características del Usuario</th>
+                                    <th>Objetivo del Consejero</th>
+                                    <th>Técnicas Grupales Sugeridas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Precontemplación</td>
+                                    <td>"Niega el problema, resistente al cambio."</td>
+                                    <td>"Aumentar la duda, generar conciencia de los riesgos."</td>
+                                    <td>"Psicoeducación (sin confrontación), escucha reflexiva, exploración de las preocupaciones de otros (familia)."</td>
+                                </tr>
+                                <tr>
+                                    <td>Contemplación</td>
+                                    <td>"Ambivalente, sopesa pros y contras."</td>
+                                    <td>"Inclinar la balanza hacia el cambio, evocar razones para cambiar."</td>
+                                    <td>"Balanza decisional en grupo, exploración de valores, preguntas sobre cómo sería la vida sin el consumo."</td>
+                                </tr>
+                                <tr>
+                                    <td>Preparación</td>
+                                    <td>"Decidido a cambiar, busca cómo hacerlo."</td>
+                                    <td>Ayudar a desarrollar un plan de acción realista y concreto.</td>
+                                    <td>"Lluvia de ideas de estrategias, establecimiento de metas pequeñas y alcanzables, identificación de redes de apoyo."</td>
+                                </tr>
+                                <tr>
+                                    <td>Acción</td>
+                                    <td>Implementa activamente el cambio.</td>
+                                    <td>"Apoyar en la ejecución del plan, enseñar habilidades."</td>
+                                    <td>"Entrenamiento en habilidades de afrontamiento (role-playing), solución de problemas, refuerzo de los logros."</td>
+                                </tr>
+                                <tr>
+                                    <td>Mantenimiento</td>
+                                    <td>"Mantiene la abstinencia, previene recaídas."</td>
+                                    <td>"Consolidar el cambio, identificar y manejar situaciones de riesgo."</td>
+                                    <td>"Técnicas de Prevención de Recaídas, desarrollo de un nuevo estilo de vida, planificación para emergencias."</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 class="text-xl font-semibold mt-6 mb-3">La Entrevista Motivacional (Miller & Rollnick)</h4>
+                    <p class="mb-4 leading-relaxed">La Entrevista Motivacional (EM) es un estilo de comunicación colaborativo diseñado para fortalecer la motivación y el compromiso de una persona con el cambio. Es especialmente útil en las etapas de precontemplación y contemplación.</p>
+                    <p class="mb-4 leading-relaxed"><b>Espíritu y Principios:</b> La práctica de la EM se guía por cuatro principios: Colaboración (el terapeuta es un compañero), Aceptación (respeto incondicional), Compasión (promover el bienestar del otro) y Evocación (extraer las propias motivaciones del usuario, no imponerlas).</p>
+                    <p class="mb-4 leading-relaxed font-semibold">Técnicas Fundamentales (PARE / OARS):</p>
+                    <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Preguntas Abiertas:</b> Fomentan la reflexión y la elaboración. (Ej. "¿Qué le preocupa de su consumo?")</li>
+                        <li><b>Afirmaciones:</b> Reconocen las fortalezas y los esfuerzos del usuario, construyendo autoeficacia. (Ej. "Fue muy valiente de su parte venir hoy.")</li>
+                        <li><b>Reflejos (Escucha Reflexiva):</b> El corazón de la EM. El terapeuta devuelve al usuario lo que ha dicho, demostrando que ha sido escuchado y guiando la conversación hacia el discurso de cambio.</li>
+                        <li><b>Resúmenes:</b> Recopilan y refuerzan lo discutido, especialmente el discurso de cambio, y marcan transiciones en la conversación.</li>
+                    </ul>
+                    <p class="mb-4 leading-relaxed"><b>Adaptación al Formato Grupal:</b> La EM puede ser adaptada eficazmente a un entorno grupal. El rol del terapeuta cambia de ser el único que aplica las técnicas a ser un facilitador que enseña al grupo a utilizarlas entre sí. Se anima a los miembros a ofrecerse afirmaciones y reflejos unos a otros. Se utilizan ejercicios grupales como la Balanza Decisional, donde el grupo entero explora colectivamente los pros y contras del consumo y del cambio.</p>
+                </section>
+                
+                <section id="cap6" class="content-section">
+                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 6: Terapia Cognitivo-Conductual (TCC) Grupal</h3>
+                     <p class="mb-4 leading-relaxed">La TCC es uno de los enfoques con mayor respaldo científico para el tratamiento de las adicciones. Se basa en el principio de que nuestros pensamientos, emociones y conductas están interconectados, y que la adicción es una conducta aprendida que puede ser modificada a través de nuevas estrategias de pensamiento y acción.</p>
+                     
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Técnica Clave: Análisis Funcional de la Conducta de Consumo</h4>
+                     <p class="mb-4 leading-relaxed">Esta es la herramienta diagnóstica fundamental de la TCC. Permite al usuario y al grupo comprender el "porqué" de su consumo, identificando los patrones que lo mantienen.</p>
+                     <p class="mb-4 leading-relaxed"><b>Modelo A-B-C (Antecedente-Conducta-Consecuente):</b> Se enseña a los miembros a analizar sus episodios de consumo utilizando este modelo:</p>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>A - Antecedentes (Disparadores):</b> ¿Qué sucedió justo antes de consumir? (Externos: personas, lugares, situaciones; Internos: pensamientos, emociones, sensaciones físicas).</li>
+                        <li><b>B - Behavior (Conducta):</b> Descripción detallada del consumo (qué, cuánto, cómo, dónde).</li>
+                        <li><b>C - Consecuencias:</b> ¿Qué pasó inmediatamente después? (Positivas a corto plazo: alivio, euforia; Negativas a largo plazo: culpa, problemas familiares, salud).</li>
+                     </ul>
+
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Técnica Clave: Reestructuración Cognitiva</h4>
+                     <p class="mb-4 leading-relaxed">Esta técnica se enfoca en identificar, cuestionar y modificar los pensamientos automáticos y las creencias disfuncionales que precipitan y justifican el consumo.</p>
+                     <p class="mb-4 leading-relaxed"><b>Ejercicio Grupal (Debate Cognitivo):</b> Un miembro comparte un pensamiento automático. El terapeuta lo escribe en una pizarra. Luego, facilita un "debate" grupal, haciendo preguntas como: "¿Qué evidencia tienen a favor de que ese pensamiento es 100% cierto?", "¿Qué evidencia hay en contra?", "¿Cuál es el efecto de creer en ese pensamiento?", "¿Qué pensamiento alternativo, más realista y útil, podríamos construir?"</p>
+
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Técnicas Conductuales</h4>
+                     <p class="mb-4 leading-relaxed"><b>Entrenamiento en Habilidades de Afrontamiento:</b> El grupo es un espacio ideal para aprender y practicar activamente habilidades para la vida como Solución de Problemas y Manejo de la Ira y Asertividad.</p>
+                     <p class="mb-4 leading-relaxed"><b>Role-Playing (Ensayo Conductual):</b> Esta es la técnica conductual por excelencia para el formato grupal. Permite practicar nuevas habilidades en un entorno seguro antes de enfrentarse al mundo real. Por ejemplo, un miembro quiere aprender a rechazar una oferta de droga en una fiesta y se escenifica la situación.</p>
+                </section>
+                
+                 <section id="cap7" class="content-section">
+                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 7: El Modelo de Prevención de Recaídas (Marlatt y Gordon)</h3>
+                     <p class="mb-4 leading-relaxed">Este modelo es un programa de autocontrol cognitivo-conductual diseñado específicamente para ayudar a los individuos a anticipar, afrontar y manejar el proceso de recaída.</p>
+                     
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Conceptos Centrales</h4>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Caída vs. Recaída:</b> Se enseña al grupo a diferenciar entre una "caída" (un lapso o un primer consumo aislado) y una "recaída" (un retorno completo al patrón de consumo problemático). Esta distinción es crucial para evitar que un error se convierta en un abandono total del proceso de recuperación.</li>
+                        <li><b>Situaciones de Alto Riesgo (SAR):</b> Son el núcleo del modelo. Se enseña a los miembros a identificar las situaciones específicas que aumentan la probabilidad de una caída. Las categorías más comunes son: estados emocionales negativos (ira, ansiedad, tristeza), conflictos interpersonales y presión social.</li>
+                        <li><b>Efecto de Violación de la Abstinencia (EVA):</b> Este concepto describe la reacción cognitiva y emocional que sigue a una caída. Se caracteriza por una intensa disonancia cognitiva ("He fallado, soy un fracaso"). Una intervención clave es enseñar a reestructurar este efecto: "Cometí un error, no soy un error. Puedo aprender de esto y volver al camino".</li>
+                     </ul>
+
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Estrategias de Intervención Grupal</h4>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Identificación de Señales de Alerta y SAR:</b> Cada miembro, con la ayuda del grupo, crea un inventario y una jerarquía de sus situaciones de alto riesgo personales.</li>
+                        <li><b>Desarrollo de Estrategias de Afrontamiento:</b> Para cada SAR identificada, el grupo realiza una lluvia de ideas sobre posibles estrategias de afrontamiento (cognitivas y conductuales).</li>
+                        <li><b>Reequilibrio del Estilo de Vida:</b> El modelo enfatiza que la recuperación no es solo "no consumir", sino construir una vida que valga la pena vivir.</li>
+                        <li><b>Plan de Emergencia para Recaídas:</b> Una tarea grupal fundamental es que cada miembro desarrolle un "plan de emergencia" por escrito, detallando paso a paso qué hacer en caso de una caída.</li>
+                     </ul>
+                </section>
+
+                 <section id="cap8" class="content-section">
+                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 8: Manual de Dinámicas y Ejercicios Psicoeducativos</h3>
+                     <p class="mb-4 leading-relaxed">Este capítulo ofrece un compendio de actividades prácticas, listas para ser implementadas en las sesiones grupales, clasificadas por su objetivo terapéutico.</p>
+                     
+                     <div class="space-y-8">
+                        <div>
+                             <h4 class="text-xl font-semibold mt-6 mb-3">Dinámicas para Romper el Hielo y Fomentar la Cohesión</h4>
+                             <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                                <li><b>"La Telaraña":</b> Los participantes se sientan en círculo. Uno sostiene un ovillo de lana, dice su nombre y algo sobre sí mismo, y luego, sosteniendo la punta del hilo, lanza el ovillo a otro participante. El proceso se repite hasta que todos están conectados por una red. Simboliza la interconexión y el apoyo del grupo.</li>
+                                <li><b>Presentaciones Cruzadas:</b> Los miembros se agrupan en parejas. Se entrevistan mutuamente durante unos minutos y luego cada uno presenta a su compañero al resto del grupo. Fomenta la escucha activa y la conexión inicial.</li>
+                             </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mt-6 mb-3">Ejercicios de Psicoeducación</h4>
+                            <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                                <li><b>Neurobiología de la Adicción:</b> Usando una pizarra y diagramas simples, el consejero explica el sistema de recompensa del cerebro (dopamina) y cómo las drogas "secuestran" este sistema. Ayuda a reducir la culpa al presentar la adicción como una enfermedad del cerebro.</li>
+                                <li><b>Mitos y Realidades sobre las Drogas:</b> El terapeuta presenta afirmaciones comunes sobre las drogas. El grupo discute si son verdaderas o falsas, y el consejero proporciona información basada en evidencia.</li>
+                                <li><b>Análisis de Publicidad y Sociedad de Consumo:</b> Se traen al grupo anuncios de revistas o comerciales para debatir sobre los mensajes que venden y su realismo.</li>
+                            </ul>
+                        </div>
+                        <div>
+                             <h4 class="text-xl font-semibold mt-6 mb-3">Ejercicios para el Desarrollo de Habilidades</h4>
+                             <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                                <li><b>Manejo del Estrés y la Ansiedad:</b> Prácticas como la Respiración Diafragmática y la Relajación Muscular Progresiva de Jacobson.</li>
+                                <li><b>Entrenamiento en Asertividad (Role-Playing):</b> Se proponen y practican escenarios comunes como rechazar una invitación a consumir o una oferta de alcohol en un evento familiar.</li>
+                                <li><b>Solución de Problemas en Grupo:</b> Un miembro presenta un problema actual y el grupo aplica un método estructurado para ayudarle a encontrar una solución.</li>
+                             </ul>
+                        </div>
+                        <div>
+                             <h4 class="text-xl font-semibold mt-6 mb-3">Dinámicas de Cierre y Reflexión</h4>
+                             <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                                <li><b>Producción Gráfica Grupal:</b> Se divide al grupo en subgrupos para que dibujen su viaje de recuperación en una cartulina. Luego, cada subgrupo presenta y explica su obra.</li>
+                             </ul>
+                        </div>
+                     </div>
+                </section>
+
+                <!-- SECCIÓN IV -->
+                 <section id="sec4" class="content-section">
+                    <h2 class="text-3xl md:text-4xl">Sección IV: El Rol del Consejero y la Conexión con la Prevención de Conductas Antisociales</h2>
+                    <p class="mt-4 text-xl leading-relaxed">La consejería en adicciones en México no es solo una intervención clínica aislada, sino una práctica de prevención social de primer orden. Los factores de riesgo que impulsan la adicción —como la baja autoestima, la impulsividad, el trauma, la disfunción familiar y la falta de oportunidades— son precisamente los mismos que alimentan la conducta antisocial y la delincuencia juvenil. Por lo tanto, cada sesión de terapia grupal que fortalece el autocontrol, la empatía, las habilidades de comunicación y la construcción de un proyecto de vida prosocial en un individuo, es una intervención directa que reduce la probabilidad de que esa persona recurra a conductas antisociales. El consejero no solo "trata" una adicción; está activamente construyendo capital social y resiliencia comunitaria.</p>
+                </section>
+
+                <section id="cap9" class="content-section">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 9: Competencias y Ética del Consejero en Adicciones</h3>
+                    <p class="mb-4 leading-relaxed">Para ejercer esta función de manera eficaz y responsable, el profesional debe adherirse a estándares de competencia y a un estricto código ético.</p>
+                    <h4 class="text-xl font-semibold mt-6 mb-3">El Estándar de Competencia EC0548</h4>
+                    <p class="mb-4 leading-relaxed">En México, el Consejo Nacional de Normalización y Certificación de Competencias Laborales (CONOCER) ha establecido el Estándar de Competencia EC0548: "Consejería en adicciones". Este documento oficial describe las habilidades, conocimientos y actitudes que un consejero debe dominar. Las competencias clave para la consejería grupal incluyen:</p>
+                    <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Valoración:</b> Realizar una valoración inicial para determinar la severidad de la adicción y las necesidades del usuario.</li>
+                        <li><b>Planificación:</b> Elaborar un plan de consejería individual y/o grupal estructurado, con metas y objetivos medibles.</li>
+                        <li><b>Conducción del Proceso:</b> Facilitar sesiones con empatía, escucha activa y retroalimentación positiva.</li>
+                        <li><b>Manejo de Comportamientos de Riesgo:</b> Identificar y reorientar comportamientos negativos en el marco del respeto a los derechos humanos.</li>
+                        <li><b>Intervención Familiar:</b> Conducir sesiones de consejería familiar para orientar en el desarrollo de habilidades de afrontamiento.</li>
+                    </ul>
+                    
+                    <h4 class="text-xl font-semibold mt-6 mb-3">Código de Ética y Conducta del Consejero</h4>
+                    <p class="mb-4 leading-relaxed">La práctica de la consejería está regida por principios éticos que protegen tanto al usuario como al profesional. Los pilares éticos son:</p>
+                    <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Integridad y Honestidad:</b> Actuar con veracidad y transparencia.</li>
+                        <li><b>Confidencialidad:</b> Proteger la privacidad de la información, comunicando claramente sus límites legales.</li>
+                        <li><b>Competencia Profesional:</b> Buscar capacitación continua y reconocer los límites de la propia competencia.</li>
+                        <li><b>Relaciones Profesionales:</b> Mantener límites claros y profesionales para evitar relaciones duales que puedan dañar al usuario.</li>
+                        <li><b>Respeto a los Derechos Humanos y la Dignidad:</b> Proporcionar servicios libres de discriminación, respetando la autonomía y valores del usuario.</li>
+                    </ul>
+                </section>
+
+                <section id="cap10" class="content-section">
+                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Capítulo 10: De la Adicción a la Conducta Antisocial: Intervenciones de Prevención</h3>
+                     <p class="mb-4 leading-relaxed">La formación como "Educador en Prevención de Conductas Antisociales" está intrínsecamente ligada a la consejería en adicciones, ya que ambas problemáticas comparten raíces comunes y se retroalimentan mutuamente.</p>
+                     
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Análisis de Factores de Riesgo Compartidos</h4>
+                     <p class="mb-4 leading-relaxed">La evidencia científica muestra una superposición significativa entre los factores de riesgo para el abuso de sustancias y para la delincuencia juvenil. Abordar estos factores en la terapia de adicciones es, por definición, una forma de prevención de conductas antisociales.</p>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Factores Individuales:</b> La impulsividad, la baja autoestima, los sentimientos de rechazo social, un historial de trauma o abuso, y la presencia de trastornos de salud mental comórbidos.</li>
+                        <li><b>Factores Familiares:</b> Un entorno familiar caracterizado por el conflicto, el abuso, la negligencia, la falta de supervisión parental o un historial familiar de adicciones o delincuencia.</li>
+                        <li><b>Factores Sociales y Comunitarios:</b> La influencia de un grupo de pares que consume sustancias, el fracaso o abandono escolar, la falta de oportunidades y el fácil acceso a drogas.</li>
+                     </ul>
+
+                     <h4 class="text-xl font-semibold mt-6 mb-3">La Terapia Grupal como Estrategia de Prevención</h4>
+                     <p class="mb-4 leading-relaxed">El plan de consejería grupal descrito en este manual no solo trata la adicción, sino que funciona como un programa de prevención de conductas antisociales al fortalecer los factores de protección.</p>
+                     <ul class="list-disc list-inside space-y-3 pl-4 mb-4 leading-relaxed">
+                        <li><b>Fortalecimiento de Factores Protectores Individuales:</b> Mejorar la regulación emocional, el control de impulsos, las relaciones interpersonales saludables y la construcción de un proyecto de vida prosocial.</li>
+                        <li><b>Construcción de una Red de Apoyo Prosocial:</b> El propio grupo terapéutico se convierte en un modelo de una red de pares positiva que contrarresta la influencia de círculos sociales nocivos.</li>
+                        <li><b>Reparación de Vínculos Familiares:</b> La inclusión de sesiones de consejería familiar permite trabajar en la comunicación y la dinámica familiar, una de las intervenciones preventivas más eficaces.</li>
+                     </ul>
+                     
+                     <h4 class="text-xl font-semibold mt-6 mb-3">Alineación con Programas Nacionales de Prevención</h4>
+                     <p class="mb-4 leading-relaxed">El trabajo del consejero en adicciones se alinea directamente con los objetivos de políticas públicas más amplias, como el Programa Nacional para la Prevención Social de la Violencia y la Delincuencia. Al tratar a una persona con un trastorno por uso de sustancias, el consejero está realizando una intervención terciaria para ese individuo, y al mismo tiempo, una prevención secundaria y primaria para su entorno, rompiendo ciclos intergeneracionales de violencia y adicción. En este sentido, la consejería en adicciones es una pieza fundamental en la construcción de comunidades más seguras y en la promoción de una cultura de paz en México.</p>
+                </section>
+            </div>
+            
+            <footer class="mt-16 pt-8 border-t-2 border-[var(--border-color)] text-center">
+                <p>&copy; 2025 - Material Didáctico desarrollado por Hector Argüello para TSU en Consejería y Educador en Prevención de Conductas Antisociales.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Script para la interactividad de la página
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('main');
+            
+            // Toggle menú en móvil
+            menuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+
+            // Cerrar menú al hacer clic en un enlace o fuera de él
+            mainContent.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+            });
+            
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        sidebar.classList.add('-translate-x-full');
+                    }
+                });
+            });
+
+            // Observador para resaltar el enlace activo en la barra lateral
+            const sections = document.querySelectorAll('.content-section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        // Extraer el número de capítulo/sección del ID
+                        const capId = id.startsWith('cap') ? id : (document.querySelector(`#${id} [id^=cap]`)?.id);
+
+                        if (capId) {
+                             sidebarLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === `#${capId}`) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
